@@ -5,6 +5,38 @@ const rl = readline.createInterface({
     output: process.stdout,
 });
 
+let people = [];
+let id = 1;
+
+function perguntar(texto, callback) {
+  rl.question(texto, callback);
+}
+
+
+function cadastrarUsuario() {
+  console.log("\nCadastrar Usuário");
+
+  perguntar("Nome: ", (nome) => {
+   
+          nome = nome.trim();
+          if (!nome) {
+            console.log("ERRO: Dados inválidos!");
+            return menu();
+          }
+          const peoples = {
+            id : id++,
+            nome: nome,
+        }
+        people.push(peoples)
+        id++
+        console.log("nome cadastrado com sucesso! ID: ", peoples.id);
+
+          menu();
+        });
+}
+
+
+
 function mostrarMenu() {
     console.log("\n=======================");
     console.log("      CRUD USUÁRIOS      ");
@@ -36,6 +68,10 @@ function menu(){
                 return;
                 default:
                     console.log("Opção Inválida!");
+                    menu();
+                    return;
         }
     })
 }
+
+menu();
