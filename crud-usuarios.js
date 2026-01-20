@@ -12,6 +12,15 @@ function perguntar(texto, callback) {
   rl.question(texto, callback);
 }
 
+function acharIndicePorId(id){
+  for (let i = 0; i < people.length; i++){
+    if(people[i].id ){
+      return i;
+    }
+  }
+  return -1;
+}
+
 
 function cadastrarUsuario() {
   console.log("\nCadastrar Usuário");
@@ -34,6 +43,49 @@ function cadastrarUsuario() {
           menu();
         });
 }
+
+function listarUsuario(){
+
+    if (people.length === 0) {
+    console.log("Nenhum nome cadastrado.");
+    return menu();
+  }
+
+    for(let i = 0; i < people.length; i++){
+      const c = people[i];
+      console.log(
+          "ID: ", c.id,
+          "nome: ", c.nome,
+          
+      )
+  }
+
+  menu();
+}
+
+function deletarUsuario() {
+  console.log("Deletar Usuário");
+
+  perguntar("Digite o ID: ", (idStr) => {
+    const id = Number(idStr);
+    if(Number.isNaN(id)){
+      console.log("Erro: ID invalido!");
+      return menu();
+    }
+
+    const posicao = acharIndicePorId(id);
+
+    if(posicao === -1){
+      console.log("Usuário não encontrado");
+      return menu();
+    }
+    people.splice(posicao, 1);
+    console.log("Deletado com sucesso");
+    menu();
+
+  })
+}
+
 
 
 
