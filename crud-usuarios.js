@@ -67,6 +67,8 @@ function listarUsuario(){
   menu();
 }
 
+// visualizar
+
 function visualizarUsuario(){
   console.log("Vizualizar Usuário");
 
@@ -96,6 +98,31 @@ function visualizarUsuario(){
   });
 
 }
+
+function deletarUsuario() {
+  console.log("Deletar Usuário");
+
+  perguntar("Digite o ID: ", (idStr) => {
+    const id = Number(idStr);
+    if(Number.isNaN(id)){
+      console.log("Erro: ID invalido");
+      return menu();
+    }
+
+    const posicao = acharIndicePorId(id);
+
+    if(posicao === -1){
+      console.log("Usuário não encontrado");
+      return menu();
+    }
+    people.splice(posicao, 1);
+    console.log("Deletado com sucesso");
+    menu();
+
+  })
+}
+
+// deletar
 
 function deletarUsuario() {
   console.log("Deletar Usuário");
