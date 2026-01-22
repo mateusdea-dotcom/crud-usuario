@@ -11,6 +11,7 @@ let id = 1;
 function perguntar(texto, callback) {
   rl.question(texto, callback);
 }
+// indice por ID
 
 function acharIndicePorId(id){
   for (let i = 0; i < people.length; i++){
@@ -21,6 +22,7 @@ function acharIndicePorId(id){
   return -1;
 }
 
+// cadastro
 
 function cadastrarUsuario() {
   console.log("\nCadastrar Usuário");
@@ -44,6 +46,8 @@ function cadastrarUsuario() {
         });
 }
 
+// listar
+
 function listarUsuario(){
 
     if (people.length === 0) {
@@ -61,6 +65,36 @@ function listarUsuario(){
   }
 
   menu();
+}
+
+function visualizarUsuario(){
+  console.log("Vizualizar Usuário");
+
+  perguntar("Digite o ID: ", (idStr) => {
+    const id = Number(idStr);
+    if (Number.isNaN(id)) {
+      console.log("ERRO!! ID invalido");
+      return menu();
+    }
+
+    const posicao = acharIndicePorId(id);
+
+    if (posicao === -1) {
+      console.log("Usuário não encontrado");
+      return menu();
+    }
+
+    const peoples = people[posicao];
+
+    console.log(
+      "ID: ", peoples.id,
+          "| Nome: ", peoples.nome,
+          
+    )
+
+    menu();
+  });
+
 }
 
 function deletarUsuario() {
@@ -111,7 +145,7 @@ function menu(){
         switch (opcao) {
             case "1": return cadastrarUsuario();
             case "2": return listarUsuario();
-            case "3": return vusualizarUsuario();
+            case "3": return visualizarUsuario();
             case "4": return editarUsuario();
             case "5": return deletarUsuario();
             case "0":
